@@ -230,6 +230,7 @@ public class UserServiceImpl implements UserService {
         if (!matches) throw new BadCredentialsException("password");
         if (user.isProfilePrivate()) noteService.deleteAllUserNotes(user);
         else noteService.deleteAllUserHiddenNotes(user);
+        noteService.setOrphanFullNameForUser(user.getId());
         Set<UUID> followersIds = followService.getUserFollowersId(idFromToken);
         Set<UUID> followingIds = followService.getUserFollowingId(idFromToken);
         repository.delete(user);
