@@ -30,7 +30,7 @@ public interface FlameRepository extends JpaRepository<Flame, UUID> {
             AND (
                 (:q IS NULL OR LOWER(nu.username) LIKE LOWER(CONCAT('%', CAST(:q AS text), '%')))
                 OR (:q IS NULL OR LOWER(nu.displayName) LIKE LOWER(CONCAT('%', CAST(:q AS text), '%')))
-                OR (:q IS NULL OR LOWER(n.title) LIKE LOWER(CONCAT('%', CAST(:q AS text), '%')))
+                OR (:q IS NULL OR LOWER(n.name) LIKE LOWER(CONCAT('%', CAST(:q AS text), '%')))
                 OR (:q IS NULL OR LOWER(n.description) LIKE LOWER(CONCAT('%', CAST(:q AS text), '%')))
                 OR (:q IS NULL OR EXISTS (
                     SELECT 1 FROM Tag t

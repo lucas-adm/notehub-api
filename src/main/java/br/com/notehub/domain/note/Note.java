@@ -38,7 +38,9 @@ public class Note {
 
     private Instant modifiedAt = Instant.now();
 
-    private String title;
+    private String name;
+
+    private String fullName;
 
     private String description;
 
@@ -63,9 +65,10 @@ public class Note {
     private Set<Flame> flames = new HashSet<>();
     private int flamesCount = 0;
 
-    public Note(User user, String title, String description, String markdown, boolean closed, boolean hidden, List<Tag> tags) {
+    public Note(User user, String name, String description, String markdown, boolean closed, boolean hidden, List<Tag> tags) {
         this.user = user;
-        this.title = title;
+        this.name = name;
+        this.fullName = String.format("%s/%s", user.getUsername(), name);
         this.closed = closed;
         this.hidden = hidden;
         if (description != null) this.description = description;

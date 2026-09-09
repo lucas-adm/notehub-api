@@ -16,9 +16,9 @@ public interface NoteService {
 
     LowDetailNoteRES create(UUID idFromToken, CreateNoteREQ req);
 
-    void edit(UUID idFromToken, UUID idFromPath, String title, String description, List<String> tags, boolean closed, boolean hidden);
+    void edit(UUID idFromToken, UUID idFromPath, String name, String description, List<String> tags, boolean closed, boolean hidden);
 
-    void changeTitle(UUID idFromToken, UUID idFromPath, String title);
+    void changeName(UUID idFromToken, UUID idFromPath, String name);
 
     void changeDescription(UUID idFromToken, UUID idFromPath, String description);
 
@@ -29,6 +29,8 @@ public interface NoteService {
     void changeHidden(UUID idFromToken, UUID idFromPath);
 
     void changeTags(UUID idFromToken, UUID idFromPath, List<String> tags);
+
+    void setOrphanFullNameForUser(UUID uId);
 
     void delete(UUID idFromToken, UUID idFromPath);
 
@@ -52,7 +54,7 @@ public interface NoteService {
 
     PageRES<LowDetailNoteRES> findUserNotesBySpecs(UUID idFromToken, Pageable pageable, String username, String q, String tag, String type);
 
-    DetailNoteRES getNote(UUID idFromToken, UUID idFromPath);
+    DetailNoteRES getNote(UUID idFromToken, String username, String name);
 
     PageRES<LowDetailNoteRES> getAllUserNotesByUsername(Pageable pageable, String username);
 
