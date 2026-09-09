@@ -74,11 +74,11 @@ public class NoteController {
             @Valid @RequestBody EditNoteREQ dto
     ) {
         UUID idFromToken = getSubject(accessToken);
-        service.edit(idFromToken, idFromPath, dto.title(), dto.description(), dto.tags(), dto.closed(), dto.hidden());
+        service.edit(idFromToken, idFromPath, dto.name(), dto.description(), dto.tags(), dto.closed(), dto.hidden());
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @Operation(summary = "Change note title", description = "Changes the note title.")
+    @Operation(summary = "Change note name", description = "Changes the note name.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Note updated successfully."),
             @ApiResponse(responseCode = "400", description = "Invalid input data.", content = @Content(mediaType = "application/json")),
@@ -86,14 +86,14 @@ public class NoteController {
             @ApiResponse(responseCode = "404", description = "Note not found."),
             @ApiResponse(responseCode = "500", description = "Internal server error.")
     })
-    @PatchMapping("/{id}/change-title")
-    public ResponseEntity<Void> changeNoteTitle(
+    @PatchMapping("/{id}/change-name")
+    public ResponseEntity<Void> changeNoteName(
             @Parameter(hidden = true) @RequestHeader("Authorization") String accessToken,
             @PathVariable("id") UUID idFromPath,
-            @Valid @RequestBody ChangeTitleREQ dto
+            @Valid @RequestBody ChangeNameREQ dto
     ) {
         UUID idFromToken = getSubject(accessToken);
-        service.changeTitle(idFromToken, idFromPath, dto.title());
+        service.changeName(idFromToken, idFromPath, dto.name());
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
@@ -252,7 +252,7 @@ public class NoteController {
         return ResponseEntity.status(HttpStatus.OK).body(tags);
     }
 
-    @Operation(summary = "Search for notes", description = "Searches notes by title or description.")
+    @Operation(summary = "Search for notes", description = "Searches notes by name or description.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Search results retrieved successfully."),
             @ApiResponse(responseCode = "400", description = "Invalid search criteria.", content = @Content(mediaType = "application/json")),
@@ -267,7 +267,7 @@ public class NoteController {
         return ResponseEntity.status(HttpStatus.OK).body(page);
     }
 
-    @Operation(summary = "Search for user notes", description = "Searches user notes by title or tag.")
+    @Operation(summary = "Search for user notes", description = "Searches user notes by name or tag.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Search results retrieved successfully."),
             @ApiResponse(responseCode = "400", description = "Invalid pageable criteria.", content = @Content(examples = {})),
@@ -324,7 +324,7 @@ public class NoteController {
             description = """
                      Searches notes of a specific user combining optional filters:
                      - Username (path parameter)
-                     - Text query (q) for title
+                     - Text query (q) for name
                      - Tag name (tag)
                      - Type (open, closed and hidden)
                     """
@@ -357,13 +357,14 @@ public class NoteController {
             @ApiResponse(responseCode = "404", description = "Note not found.", content = @Content(examples = {})),
             @ApiResponse(responseCode = "500", description = "Internal server error.", content = @Content(examples = {}))
     })
-    @GetMapping("/{id}")
+    @GetMapping("{username}/{name}")
     public ResponseEntity<DetailNoteRES> getPublicNote(
             @Parameter(hidden = true) @RequestHeader(required = false, value = "Authorization") String accessToken,
-            @PathVariable("id") UUID idFromPath
+            @PathVariable("username") String username,
+            @PathVariable("name") String name
     ) {
         UUID idFromToken = getSubject(accessToken);
-        DetailNoteRES note = service.getNote(idFromToken, idFromPath);
+        DetailNoteRES note = service.getNote(idFromToken, username, name);
         return ResponseEntity.status(HttpStatus.OK).body(note);
     }
 

@@ -12,7 +12,8 @@ import java.util.UUID;
 
 public record DetailNoteRES(
         UUID id,
-        String title,
+        String name,
+        String full_name,
         String description,
         List<String> tags,
         DetailUserRES user,
@@ -28,7 +29,8 @@ public record DetailNoteRES(
     public DetailNoteRES(Note note) {
         this(
                 note.getId(),
-                note.getTitle(),
+                note.getName(),
+                note.getFullName(),
                 note.getDescription(),
                 note.getTags().stream().map(Tag::getName).toList(),
                 note.getUser() != null ? new DetailUserRES(note.getUser()) : null,

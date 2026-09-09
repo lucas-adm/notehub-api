@@ -41,22 +41,22 @@ public record MessageNotification(
     private static Map<String, Object> createFlameNotification(Flame flame) {
         User from = flame.getUser();
         String target = flame.getNote().getId().toString();
-        String title = flame.getNote().getTitle();
+        String name = flame.getNote().getName();
         return createInfo(
                 Type.FLAME,
                 target,
-                String.format("@%s inflamou sua nota: %s", from.getUsername(), title)
+                String.format("@%s inflamou sua nota: %s", from.getUsername(), name)
         );
     }
 
     private static Map<String, Object> createCommentNotification(Comment comment) {
         User from = comment.getUser();
         String target = comment.getNote().getId().toString();
-        String title = comment.getNote().getTitle();
+        String name = comment.getNote().getName();
         return createInfo(
                 Type.COMMENT,
                 target,
-                String.format("@%s comentou em sua nota: %s", from.getUsername(), title)
+                String.format("@%s comentou em sua nota: %s", from.getUsername(), name)
         );
     }
 
