@@ -73,6 +73,7 @@ public class UserDeletionTest {
         verify(repository).findById(user.getId());
         verify(repository).delete(user);
         verify(noteService).deleteAllUserHiddenNotes(user);
+        verify(noteService).setOrphanFullNameForUser(user.getId());
         verify(eventPublisher).publishEvent(any(UserDeletedEvent.class));
     }
 
@@ -88,6 +89,7 @@ public class UserDeletionTest {
         verify(repository).findById(user.getId());
         verify(repository, never()).delete(user);
         verify(noteService, never()).deleteAllUserHiddenNotes(user);
+        verify(noteService, never()).setOrphanFullNameForUser(any());
         verify(eventPublisher, never()).publishEvent(any());
     }
 
