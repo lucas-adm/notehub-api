@@ -74,7 +74,7 @@ public class NoteController {
             @Valid @RequestBody EditNoteREQ dto
     ) {
         UUID idFromToken = getSubject(accessToken);
-        service.edit(idFromToken, idFromPath, dto.name(), dto.description(), dto.tags(), dto.closed(), dto.hidden());
+        service.edit(idFromToken, idFromPath, dto.name(), dto.description(), dto.tags(), dto.closed(), dto.hidden(), dto.encrypted());
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 

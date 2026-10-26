@@ -34,6 +34,8 @@ public record EditNoteREQ(
 
         boolean closed,
 
-        boolean hidden
+        boolean hidden,
+
+        boolean encrypted
 ) {
 }

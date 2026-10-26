@@ -16,7 +16,7 @@ public interface NoteService {
 
     LowDetailNoteRES create(UUID idFromToken, CreateNoteREQ req);
 
-    void edit(UUID idFromToken, UUID idFromPath, String name, String description, List<String> tags, boolean closed, boolean hidden);
+    void edit(UUID idFromToken, UUID idFromPath, String name, String description, List<String> tags, boolean closed, boolean hidden, boolean encrypted);
 
     void changeName(UUID idFromToken, UUID idFromPath, String name);
 

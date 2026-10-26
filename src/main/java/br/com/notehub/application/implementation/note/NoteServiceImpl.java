@@ -106,7 +106,7 @@ public class NoteServiceImpl implements NoteService {
 
     @Transactional
     @Override
-    public void edit(UUID idFromToken, UUID idFromPath, String name, String description, List<String> tags, boolean closed, boolean hidden) {
+    public void edit(UUID idFromToken, UUID idFromPath, String name, String description, List<String> tags, boolean closed, boolean hidden, boolean encrypted) {
         changeField(idFromToken, idFromPath, note -> {
             validateNoteName(note.getUser().getUsername(), note.getName(), name);
             List<String> oldTags = note.getTags().stream().map(Tag::getName).toList();
@@ -116,6 +116,7 @@ public class NoteServiceImpl implements NoteService {
             note.setTags(findOrCreateTags(tags));
             note.setClosed(closed);
             note.setHidden(hidden);
+            note.setEncrypted(encrypted);
             removeOrphanTags(oldTags);
         });
         feeder.onNoteHidden(idFromPath);

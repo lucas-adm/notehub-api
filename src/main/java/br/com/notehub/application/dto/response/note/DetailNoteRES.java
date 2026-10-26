@@ -22,6 +22,7 @@ public record DetailNoteRES(
         boolean modified,
         boolean closed,
         boolean hidden,
+        boolean encrypted,
         String markdown,
         int comments_count,
         int flames_count
@@ -39,6 +40,7 @@ public record DetailNoteRES(
                 note.isModified(),
                 note.isClosed(),
                 note.isHidden(),
+                note.isEncrypted(),
                 note.getMarkdown(),
                 note.getCommentsCount(),
                 note.getFlamesCount()

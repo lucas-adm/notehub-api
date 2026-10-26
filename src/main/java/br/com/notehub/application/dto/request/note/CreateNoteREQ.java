@@ -28,6 +28,8 @@ public record CreateNoteREQ(
 
         boolean hidden,
 
+        boolean encrypted,
+
         @Size(max = 12, message = "Capacidade máxima excedida")
         List<
                 @NotBlank(message = "Não pode ser vazio")
